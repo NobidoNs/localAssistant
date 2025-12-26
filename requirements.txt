@@ -1,0 +1,8 @@
+PyAudio==0.2.14
+ollama
+openai-whisper
+torch
+silero
+soundfile
+numpy
+razdel

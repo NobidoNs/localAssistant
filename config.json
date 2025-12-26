@@ -1,0 +1,14 @@
+{
+    "ollama_model": "llama3.1:8b",
+    "whisper_model": "base",
+    "tts_model": "kseniya",
+    "tts_speed": 1.0,
+    "tts_volume": 1.0,
+    "tts_sample_rate": 48000,
+    "tts_gap_seconds": 0.25,
+    "recorder_sample_rate": 16000,
+    "recorder_chunk": 1024,
+    "recorder_silence_threshold": 900,
+    "recorder_silence_duration": 1.2,
+    "recorder_max_recording": 20.0
+}
