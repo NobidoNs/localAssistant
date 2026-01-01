@@ -6,3 +6,4 @@ silero
 soundfile
 numpy
 razdel
+audioop-lts
