@@ -8,16 +8,24 @@ import ollama
 class OllamaClient:
     """Лёгкая обёртка над python-API Ollama."""
 
-    def __init__(self, model: str = "llama3.1:8b", system_prompt: str | None = None):
+    def __init__(
+        self,
+        model: str,
+        system_prompt: str | None = None,
+        keep_alive: str = "2m",
+    ):
         """
         Инициализирует клиент Ollama.
 
         Args:
             model: Название модели Ollama
             system_prompt: Системный промпт для модели
+            keep_alive: Время хранения модели в памяти после последнего использования
+                        (например, "5m", "10m", "30m"). Ускоряет последующие запросы.
         """
         self.model = model
         self.system_prompt = system_prompt
+        self.keep_alive = keep_alive
 
     def ask(self, user_text: str, stream: bool = True) -> str:
         """
@@ -37,7 +45,15 @@ class OllamaClient:
 
         print("[LLM] Ollama думает...")
         stream_response = ollama.chat(
-            model=self.model, messages=messages, stream=stream
+            model=self.model,
+            messages=messages,
+            stream=stream,
+            keep_alive=self.keep_alive,  # Держит модель в памяти для ускорения
+            options={
+                # Оптимизации для ускорения генерации
+                "num_predict": -1,  # Без ограничения длины (как в CLI)
+                "temperature": 0.7,  # Стандартное значение
+            },
         )
 
         if stream:
